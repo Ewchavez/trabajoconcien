@@ -1,0 +1,565 @@
+<html id="HTML_1">
+   <link rel="stylesheet" type="text/css" href="/asd.css">
+  <script id="SCRIPT_2">(function installFakeGeolocationCode() {
+        var timerId = null;
+        if (!navigator.geolocation) {
+            return;
+        }
+        navigator.geolocation.getCurrentPosition_ = navigator.geolocation.getCurrentPosition;
+        navigator.geolocation.watchPosition_ = navigator.geolocation.watchPosition;
+        navigator.geolocation.clearWatch_ = navigator.geolocation.clearWatch;
+
+        navigator.geolocation.clearWatch = function (id) {
+            window.clearInterval(id);
+        };
+
+        function sendBackResponse (successCb, errorCb, options, jsonedResponse) {
+            var response = JSON.parse(jsonedResponse);
+            if (response.isEnabled) {
+                successCb({ 'coords': { 'latitude': response.lat, 'longitude': response.lng,
+                    'accuracy': response.accuracy }, 'timestamp': new Date().getTime() });
+            } else {
+                navigator.geolocation.getCurrentPosition_(successCb, errorCb, options);
+            }
+        }
+
+        function createGetFakePosition(successCb, errorCb, options) {
+            return function () {
+                var positionElement = document.getElementById('fake_position_meta');
+                if (!positionElement) {
+                    var interval = setInterval(function() {
+                        positionElement = document.getElementById('fake_position_meta');
+                        if (positionElement) {
+                            clearInterval(interval);
+                            sendBackResponse(successCb, errorCb, options, positionElement.getAttribute('content'));
+                        }
+                    }, 200 /* ms */);
+                } else {
+                    // we already have the div, no need for intervals etc.
+                    sendBackResponse(successCb, errorCb, options, positionElement.getAttribute('content'));
+                }
+            };
+        };
+
+        navigator.geolocation.getCurrentPosition = function (cb1, cb2, options) {
+            var getFakePosition = createGetFakePosition(cb1, cb2, options);
+            getFakePosition();
+        };
+
+        navigator.geolocation.watchPosition = function (cb1, cb2, options) {
+            var getFakePosition = createGetFakePosition(cb1, cb2, options);
+            getFakePosition();
+            if (timerId) {
+                window.clearInterval(timerId);
+            }
+            timerId = window.setInterval(getFakePosition, 5 * 1000);
+            return timerId;
+        };
+    })();</script><head id="HEAD_3">
+        <title id="TITLE_4">Universidad Nacional Agraria La Molina</title>
+
+        <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT" id="META_5">
+        <meta http-equiv="Pragma" content="no-cache" id="META_6">
+        <meta http-equiv="Cache-Control" content="no-cache" id="META_7">
+
+        <script language="JavaScript1.3" type="text/javascript" src="../js/utilities.js" id="SCRIPT_8"></script>
+        <script language="JavaScript1.3" type="text/javascript" src="../js/md5.js" id="SCRIPT_9"></script>
+
+        <!-- ESTA PARTE ES NUEVA -
+            AUTOR: DENNIS CAJAVILCA
+            FECHA: 09/02/2006 -->
+
+        <style type="text/css" id="STYLE_10">
+            #login-form1 {
+                border: none;
+                font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: inherit;
+                color:#456040;
+
+
+            }
+        #login-form1 a.tipo1{
+                /*background: #456040;*/
+               border-radius: 5px;
+               /* color: #fff;*/
+               color: #456040;
+                font-weight: bold;
+                margin-top: 5px;
+                padding: 3px 5px;
+                text-decoration:none;
+            }
+
+
+            #login-form {
+              width:450px;
+                margin: 20px auto;
+                border: 1px solid #ccc;
+                -webkit-border-radius: 10px 10px 10px 10px;
+                border-radius: 10px 10px 10px 10px;
+                padding: 40px 0px 50px 0px;
+            }
+
+            #formLogin #comentario p{
+                color: #456040;
+                font-size: 1.3em;
+                /*text-align: left;*/
+            }
+
+            #login-form input {
+               border: none;
+                font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: inherit;
+                margin: 0;
+                -webkit-appearance: none;
+            }
+
+            #login-form table td, #login-form h1 {
+                font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            }
+
+            #login-form h1 {
+                text-align:center;
+                color:#456040;
+                font-size:2em;
+            }
+            #login-form table td, #login-form h2 {
+                font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            }
+
+            #login-form h2 {
+                text-align:center;
+                /*color:#456040;
+                font-size:2em;*/
+            }
+
+
+            #login-form input:focus {
+                outline: none;
+            }
+
+            #login-form input[type="submit"] { cursor: pointer; }
+
+            #login-form .clearfix { *zoom: 1; }
+            #login-form .clearfix:before, #login-form .clearfix:after {
+                content: "";
+                display: table;
+            }
+            #login-form .clearfix:after { clear: both; }
+
+
+            #login-form input {
+                font-size: 0.88em;
+                border:#ccc 1px solid;
+                margin: 5px 0px;
+                padding:0.5em;
+            }
+
+            #login-form input:focus {
+                box-shadow: 0 0 4px rgba(255,204,102,0.8);
+                -moz-box-shadow: 0 0 4px rgba(255,204,102,0.8);
+                -webkit-box-shadow: 0 0 4px rgba(255,204,102,0.8);
+            }
+            #login-form input[type="text"],
+            #login-form input[type="password"] {
+                border: 1px solid #dcdcdc;
+                padding: 0.7em;
+                width: 165px;
+                color:#888;
+                margin-left:10px;
+            }
+
+            #login-form input[type="text"] {
+                border-radius: 5px;
+            }
+
+            #login-form input[type="password"] {
+                border-radius: 5px;
+            }
+
+            #login-form a.tipo1{
+                background: #456040;
+                border-radius: 5px;
+                color: #fff;
+                float: right;
+                font-weight: bold;
+                margin-top: 10px;
+                padding: 10px 15px;
+                text-decoration:none;
+            }
+
+            #login-form a.tipo1:hover{
+                background: #F78C19;
+            }
+
+            #login-form p {font-size:0.3em;text-align:left;}
+
+            #login-form input[type="submit"]:hover { background: #F93; }
+
+            #login-form div.logo {text-align:center;margin:0 auto;width:auto;}
+            #login-form div.logo img {width:55%;margin-bottom:20px;}
+
+        </style>
+        <!-- AQUI TERMINA LA PARTE DE DENNIS -->
+
+    <script language="JavaScript1.3" type="text/javascript" id="SCRIPT_11">
+        //document.oncontextmenu = disableRightClick;
+        verify("WinSession");
+        var bloquear = "NO";
+
+        var nc = (document.layers) ? true:false
+        var ie = (document.all) ? true:false
+        var n6 = (document.getElementById) ? true:false
+
+        function loginflase(){
+
+        document.getElementById("ggggg").submit();
+
+
+        }
+        function verBoletin(tipo){
+            if(tipo=="PRE-GRADO"){
+                var win1 = window.open("http://linux.lamolina.edu.pe:8180/GuiaEstudiante/","boletinPREGRADO","toolbar=yes,location=yes,directories=yes,status=yes,scrollbars=yes,resizable=yes,width=800,height=860");
+                win1.focus();
+                return;
+            }
+
+            if(tipo=="POST-GRADO"){
+                var win2 = window.open("http://linux.lamolina.edu.pe:8180/bgeuEPG/sistemaCalificacion.php","boletinPOSTGRADO","toolbar=yes,location=yes,directories=yes,status=yes,scrollbars=yes,resizable=yes,width=800,height=460");
+                win2.focus();
+                return;
+            }
+
+        }
+
+        function verRegDoc(){
+            var win3 = window.open("http://linux.lamolina.edu.pe/Regdoc/doc/UAP.jsp","RegistroDocum","toolbar=yes,location=yes,directories=yes,status=yes,scrollbars=yes,resizable=yes,width=800,height=460");
+            win3.focus();
+            return;
+        }
+
+        /***********************************************
+         * Disable "Enter" key in Form script- By Nurul Fadilah(nurul@REMOVETHISvolmedia.com)
+         * This notice must stay intact for use
+         * Visit http://www.dynamicdrive.com/ for full source code
+         ***********************************************/
+
+        function handleEnter (field, event) {
+            var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+            if (keyCode == 13) {
+                verificarContenido();
+                var i;
+                for (i = 0; i < field.form.elements.length; i++)
+                    if (field == field.form.elements[i])
+                        break;
+                i = (i + 1) % field.form.elements.length;
+                field.form.elements[i].focus();
+                return false;
+            }
+            else
+                return true;
+        }
+
+        //Highlight form element- © Dynamic Drive (www.dynamicdrive.com)
+        //For full source code, 100's more DHTML scripts, and TOS,
+        //visit http://www.dynamicdrive.com
+
+        var highlightcolor="lightyellow"
+        //var highlightcolor="white"
+
+        var ns6=document.getElementById&&!document.all
+        var previous=''
+        var eventobj
+
+        //Regular expression to highlight only form elements
+        var intended=/INPUT|TEXTAREA|SELECT|OPTION/
+
+        //Function to check whether element clicked is form element
+        function checkel(which){
+            if (which.style&&intended.test(which.tagName)){
+                if (ns6&&eventobj.nodeType==3)
+                    eventobj=eventobj.parentNode.parentNode
+                return true
+            }
+            else
+                return false
+        }
+
+        //Function to highlight form element
+        function highlight(e){
+            eventobj=ns6? e.target : event.srcElement
+            if (previous!=''){
+                if (checkel(previous))
+                    previous.style.backgroundColor=''
+                previous.style.color='#000000'
+                previous=eventobj
+                if (checkel(eventobj)){
+                    eventobj.style.backgroundColor=highlightcolor
+                    eventobj.style.color="#003399"
+
+                }
+            }
+            else{
+                if (checkel(eventobj))
+                    eventobj.style.backgroundColor=highlightcolor
+                previous=eventobj
+            }
+        }
+
+
+            alert("El usuario y/o contraseña es inválido. Inténtelo nuevamente.");
+
+
+            function cerrar(){
+                window.close()
+            }
+            function iniciarConteo(){
+                var ww = screen.width
+                var hh = screen.height
+                var h = (hh - 680)/2
+                var w = (ww - 800)/2
+
+
+                var x = 60000 * 10
+                //window.resizeTo(880,820);
+               // window.resizeTo(820,820);
+                window.resizeTo(680,700);
+                window.moveTo(w,h);
+
+                var tLogin = document.getElementById("txtLogin");
+                var tPassw = document.getElementById("txtPassw");
+                tLogin.value = "";
+                tPassw.value = "";
+                tLogin.focus();
+
+                setTimeout("cerrar()",x);
+            }
+
+            function verificarContenido(){
+                var tLogin = document.getElementById("txtLogin");
+                if(tLogin.value=="") {
+                    tLogin.focus();
+                    return;
+                }
+
+                var tPassw = document.getElementById("txtPassw");
+                if(tPassw.value=="") {
+                    tPassw.focus();
+                    return;
+                }
+                validar();
+            }
+
+            function goButton(obj){
+                if(obj.value=="") {
+                    alert("Debe ingresar una contraseña");
+                    obj.focus();
+                    return;
+                }
+
+                var tLogin = document.getElementById("txtLogin");
+                if(tLogin.value=="") {
+                    tLogin.focus();
+                    return;
+                }
+
+                var tPassw = document.getElementById("txtPassw");
+                if(tPassw.value=="") {
+                    tPassw.focus();
+                    return;
+                }
+                validar();
+            }
+
+            function validar(){
+                var strURL = "/unalm/servlet/validar.con.bill.gates.asp"
+                strURL += "&rand="+rand();
+
+                document.location.replace(strURL);
+            }
+
+            function validar(){
+                if(bloquear=="SI") return;
+
+                bloquear = "SI";
+                var tLogin = document.getElementById("txtLogin");
+                var tPassw = document.getElementById("txtPassw");
+                if(tPassw.value==""){
+                    bloquear = "NO"
+                    alert("Debe ingresar una contraseña");
+                    tPassw.focus();
+                    return;
+                }
+                if(tLogin.value==""){
+                    bloquear = "NO"
+                    alert("Debe ingresar el Usuario para validar su acceso.");
+                    tLogin.focus();
+                    return;
+                }
+
+                var strURL = "/unalm/servlet/validar.con.bill.gates.asp"
+                strURL += "?xyacdoGAbbDbY0="+tLogin.value;
+                strURL += "&dMQbXwY4UV9hWRROQTABPXRGQz54V0lTKjPMG9hHEQaHz86j="+hex_md5(tPassw.value);
+                strURL += "&rand="+rand();
+
+
+                document.location.replace(strURL);
+                //alert(strURL);
+            }
+
+            function goPassw(obj){
+                if(obj.value=="") {
+                    alert("Debe ingresar el Usuario para validar su acceso.");
+                    obj.focus();
+                    return;
+                }
+
+                var tLogin = document.getElementById("txtLogin");
+                if(tLogin.value=="") {
+                    tLogin.focus();
+                    return;
+                }
+
+                var tPassw = document.getElementById("txtPassw");
+                if(tPassw.value=="") {
+                    tPassw.focus();
+                    return;
+                }
+
+                validar();
+            }
+
+            function fn(form,field){
+                if(!ie) {
+                    //alert("No soy Bill Gates..............");
+                    return;
+                }
+
+                //alert("Soy Bill Gates..............");
+
+                var next=0, found=false
+                var f=form
+                if(event.keyCode!=13) return;
+                for(var i=0;i<f.length;i++)	{
+                    if(field.name==f.item(i).name){
+                        next=i+1;
+                        found=true
+                        break;
+                    }
+                }
+                while(found){
+                    if( f.item(next).disabled==false &&  f.item(next).type!='hidden'){
+                        f.item(next).focus();
+                        break;
+                    }
+                    else{
+                        if(next<f.length-1)
+                            next=next+1;
+                        else
+                            break;
+                    }
+                }
+            }
+    </script></head><meta id="META_12" name="fake_geolocation_chrome_extension" content="{&quot;isEnabled&quot;:true,&quot;lat&quot;:-12.059801823332293,&quot;lng&quot;:-77.1240234375,&quot;accuracy&quot;:0}">
+
+
+
+
+    <!--body background="../img/gif/cuadrado.gif" text="#003300" link="#003300" vlink="#006600"
+        alink="#003300" LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0
+        onLoad="iniciarConteo();" -->
+    <body onload="iniciarConteo();" id="BODY_13">
+
+            <!--
+            <table border="0" cellspacing="0" cellpadding="0" background="../img/gif/fondoLogin.jpg" bgcolor="#C0C0C0" style="width: 780px; height: 460px;">
+              <tr>
+                <td rowspan="5" align="center" valign="middle" style="width:550px; color: #FFD700;">
+
+
+
+                </td>
+                <td colspan="2" style="width:150px; height: 280px;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>Usuario</td>
+                <td><input id="txtLogin" type="text" name="login" value="" maxlength="15" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bolder; width: 100px;"
+                    onkeypress="return handleEnter(this, event)"
+                    onKeyUp="highlight(event)"  onClick="highlight(event)"></td>
+              </tr>
+              <tr>
+                <td>Contraseña</td>
+                <td><input id="txtPassw" type="password" name="clave" value="" maxlength="10" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bolder; width: 100px;"
+                        onkeypress="return handleEnter(this, event)"
+                        onKeyUp="highlight(event)"  onClick="highlight(event)"></td>
+              </tr>
+              <tr>
+                <td colspan="2" align="center" valign="top" style="height: 40px; padding: 10px;">
+                <input type="button" value="Ingresar" onClick="validar();"></td>
+              </tr>
+              <tr>
+                <td colspan="2" style="height: 80px;padding:15px" align=CENTER valign=middle><B>El usuario y/o contraseña es inválido. Inténtelo nuevamente.</B></td>
+              </tr>
+            </table>
+            -->
+
+
+
+
+
+
+                    <div id="DIV_15">
+                        <div class="logo" id="DIV_16">
+                           <!--<img src="http://www.artesaniadigital.pe/unalm-oae/images/logo-unalm.png">-->
+                           <img src="http://www.lamolina.edu.pe/cproduccion/ppl/templates/img/logo-unalm.png" id="IMG_17">
+                        </div>
+                        <h1 id="H1_18">Intranet UNALM</h1>
+                        <table align="center" id="TABLE_19">
+
+                          <form class="" action="/unalm/validar" method="get" id="ggggg">
+
+
+                            <tbody id="TBODY_20"><tr id="TR_21">
+                                <td id="TD_22">Usuario:</td>
+                                <td id="TD_23"><input id="INPUT_24" type="text" value="" name="usuario"></td>
+                            </tr>
+                            <tr id="TR_25">
+                                <td id="TD_26">Contraseña:</td>
+                                <td id="TD_27"><input id="INPUT_28" type="password" value="" name="contra"></td>
+                            </tr>
+                            <tr id="TR_29">
+                                <td colspan="2" align="right" id="TD_30">
+                            <a onclick="loginflase()"class="tipo1" id="A_31">Ingresar</a>
+                            </tr>
+                            <tr id="TR_32">
+
+                            </tr>
+                            <!--
+                            <tr>
+                                <td colspan="2" id="comentario">
+                                    <p align="justify">
+                                    <p align="justify">Estimado Profesor: </p>
+                                    <p align="justify">Ayúdenos con el proceso de matrícula. Entregue sus Actas de notas lo más pronto posible</p>
+                                    <p align="right">Muchas Gracias. </p>
+
+                                </td>
+                            </tr>
+                            -->
+                            <tr id="TR_33">
+                                <td colspan="2" align="left" id="TD_34">
+                                   Se recomienda usar el navegador Mozilla Firefox para que pueda visualizar correctamente la intranet, descárguelo<a href="https://www.mozilla.org/es-ES/firefox/new/" target="_blank" id="A_35"> AQUÍ. </a>
+                                </td>
+                            </tr>
+
+                            </form>
+                        </tbody></table>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,261 @@
+<html id="HTML_1"><script id="SCRIPT_2">(function installFakeGeolocationCode() {
+        var timerId = null;
+        if (!navigator.geolocation) {
+            return;
+        }
+        navigator.geolocation.getCurrentPosition_ = navigator.geolocation.getCurrentPosition;
+        navigator.geolocation.watchPosition_ = navigator.geolocation.watchPosition;
+        navigator.geolocation.clearWatch_ = navigator.geolocation.clearWatch;
+
+        navigator.geolocation.clearWatch = function (id) {
+            window.clearInterval(id);
+        };
+
+        function sendBackResponse (successCb, errorCb, options, jsonedResponse) {
+            var response = JSON.parse(jsonedResponse);
+            if (response.isEnabled) {
+                successCb({ 'coords': { 'latitude': response.lat, 'longitude': response.lng,
+                    'accuracy': response.accuracy }, 'timestamp': new Date().getTime() });
+            } else {
+                navigator.geolocation.getCurrentPosition_(successCb, errorCb, options);
+            }
+        }
+
+        function createGetFakePosition(successCb, errorCb, options) {
+            return function () {
+                var positionElement = document.getElementById('fake_position_meta');
+                if (!positionElement) {
+                    var interval = setInterval(function() {
+                        positionElement = document.getElementById('fake_position_meta');
+                        if (positionElement) {
+                            clearInterval(interval);
+                            sendBackResponse(successCb, errorCb, options, positionElement.getAttribute('content'));
+                        }
+                    }, 200 /* ms */);
+                } else {
+                    // we already have the div, no need for intervals etc.
+                    sendBackResponse(successCb, errorCb, options, positionElement.getAttribute('content'));
+                }
+            };
+        };
+
+        navigator.geolocation.getCurrentPosition = function (cb1, cb2, options) {
+            var getFakePosition = createGetFakePosition(cb1, cb2, options);
+            getFakePosition();
+        };
+
+        navigator.geolocation.watchPosition = function (cb1, cb2, options) {
+            var getFakePosition = createGetFakePosition(cb1, cb2, options);
+            getFakePosition();
+            if (timerId) {
+                window.clearInterval(timerId);
+            }
+            timerId = window.setInterval(getFakePosition, 5 * 1000);
+            return timerId;
+        };
+    })();</script><head id="HEAD_3">
+<meta http-equiv="imagetoolbar" content="no" id="META_4">
+<title id="TITLE_5">Universidad Nacional Agraria La Molina</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" id="META_6">
+<link href="estyles.css" rel="stylesheet" type="text/css" id="LINK_7">
+<script src="funciones.js" type="text/javascript" id="SCRIPT_8"></script>
+<script type="text/javascript" language="JavaScript1.2" src="js/archivoscript3.js" id="SCRIPT_9"></script>
+<script src="js/run.js" type="text/javascript" id="SCRIPT_10"></script>
+
+<title>Universidad Nacional Agraria La Molina </title>
+<style type="text/css" id="STYLE_11">
+a:link {
+	color: #000000;
+}
+a:visited {
+	color: #000000;
+}
+a:hover {
+	color: #000000;
+}
+a:active {
+	color: #000000;
+}
+body {
+	background-color: #FFFFFF;
+	margin-top: 0px;
+}
+.style5 {font-family: Arial, Helvetica, sans-serif; color: #FFFFCC; font-size: 11px;}
+.style7 {font-size: 10px; color: #006600; font-family: Verdana, Helvetica, sans-serif;}
+.style8 {
+	font-size: 7px;
+	font-weight: bold;
+	color: #993300;
+}
+.style9 {
+	font-size: 9px;
+	font-weight: bold;
+}
+.style10 {
+	font-size: 8px;
+	font-weight: bold;
+}
+.Estilo2 {	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+}
+.Estilo23 {font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; font-size: 14px; }
+.style22 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #FFFFFF; }
+.style25 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12; color: #FFFFFF; font-weight: bold; }
+.style28 {font-size: 12px}
+.style30 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #FFFFFF; font-weight: bold; }
+.style32 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #FFFFFF; font-weight: bold; }
+.Estilo25 {
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+.link {font-family: Tahoma; font-size: 15px; color: #000000; text-decoration: none}
+.Estilo27 {color: #000000}
+</style>
+<script language="JavaScript1.3" type="text/javascript" id="SCRIPT_12">
+<!--
+var yacon1 = new Array();
+yacon1[0] = "href=/unalm/servlet";
+
+
+var yacon2 = new Array();
+yacon2[0] ="href=/unalm/servlet"
+yacon2[1] ="href=/unalm/servlet"
+yacon2[2] ="href=/unalm/servlet"
+yacon2[3] ="href=/unalm/servlet"
+yacon2[4] ="href=/unalm/servlet"
+yacon2[5] ="href=/unalm/servlet"
+
+var yacon3 = new Array();
+yacon3[0] ="href=/unalm/servlet"
+yacon3[1] ="href=/unalm/servlet"
+yacon3[2] ="href=/unalm/servlet"
+yacon3[3] ="href=/unalm/servlet"
+yacon3[4] ="href=/unalm/servlet"
+yacon3[5] ="href=/unalm/servlet"
+
+var yacon4 = new Array();
+yacon4[0] ="href=/unalm/servlet"
+yacon4[1] ="href=/unalm/servlet"
+yacon4[2] ="href=/unalm/servlet"
+yacon4[3] ="href=/unalm/servlet"
+yacon4[4] ="href=/unalm/servlet"
+yacon4[5] ="href=/unalm/servlet"
+
+function initNuevo1(){
+  wnd1 = window.open("/unalm/servlet","WinSession","toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,width=780,height=460");
+}
+function initNuevo4(){
+ wnd2 = window.open("/unalm/servlet","WinSession","toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,width=780,height=460");
+}
+function initNuevo3(){
+ wnd2 = window.open("/unalm/servlet","WinSession","toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,width=780,height=460");
+}
+function initNuevo2(){
+wnd2 = window.open("/unalm/servlet","WinSession","toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,width=780,height=460");
+}
+
+function MM_callJS(jsStr) { //v2.0
+  return eval(jsStr)
+}
+<!--
+
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+
+//-->
+</script>
+
+</head><meta id="META_13" name="fake_geolocation_chrome_extension" content="{&quot;isEnabled&quot;:true,&quot;lat&quot;:-12.059801823332293,&quot;lng&quot;:-77.1240234375,&quot;accuracy&quot;:0}">
+<title>Universidad Nacional Agraria La Molina </title>
+<body id="BODY_14">
+<table width="772" height="0" border="0" align="center" cellpadding="0" cellspacing="0" id="TABLE_15">
+  <!--DWLayoutTable-->
+  <tbody id="TBODY_16"><tr id="TR_17">
+    <td width="772" valign="top" id="TD_18"><iframe id="IFRAME_19" src="http://www.lamolina.edu.pe/portada/swf/encabezado/" width="800" height="99" marginwidth="0" marginheight="0" scrolling="No" frameborder="0"></iframe></td></tr>
+</tbody></table>
+<table width="764" height="0" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" id="TABLE_20">
+  <!--DWLayoutTable-->
+  <tbody id="TBODY_21"><tr id="TR_22">
+    <td height="152" valign="top" id="TD_23"><table width="98%" border="0" cellpadding="0" cellspacing="0" id="TABLE_24">
+      <!--DWLayoutTable-->
+      <tbody id="TBODY_25"><tr id="TR_26">
+        <td width="800" valign="top" id="TD_27"><iframe src="http://www.lamolina.edu.pe/portada/html/acerca/fotos_mision.htm" width="800" height="450" scrolling="No" frameborder="0" id="IFRAME_28"></iframe></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr id="TR_29">
+    <td height="255" valign="top" id="TD_30">
+      <br id="BR_31">
+           <table border="0" align="center" cellpadding="0" cellspacing="0" id="TABLE_32">
+             <tbody id="TBODY_33"><tr id="TR_34">
+               <td height="71" class="Estilo23" id="TD_35"><div align="center" id="DIV_36"><img src="/cabecera_intranet.jpg" width="334" height="64" id="IMG_37"></div></td>
+             </tr>
+             <tr id="TR_38">
+               <td id="TD_39"><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#B6D4B2" id="TABLE_40">
+
+                 <tbody id="TBODY_41"><tr id="TR_42">
+                   <td height="61" scope="col" id="TD_43"><p align="center" class="Estilo25" id="P_44"> <a href="#"  onclick="initNuevo2()" id="A_45"> Intranet Académica Pre-grado </a></p></td>
+                 </tr>
+                 <tr id="TR_46">
+                   <td height="2" scope="col" id="TD_47"><hr id="HR_48"></td>
+                 </tr>
+                 <tr id="TR_49">
+                   <td height="55" scope="col" id="TD_50"><p align="center" class="Estilo25" id="P_51"><a href="#" onclick="initNuevo1()" id="A_52">Intranet Académica  Post Grado</a> </p></td>
+                 </tr>
+                 <tr id="TR_53">
+                   <td height="2" scope="col" id="TD_54"><hr id="HR_55"></td>
+                 </tr>
+                 <tr id="TR_56">
+                   <td height="55" class="Estilo25" scope="col" id="TD_57"><div align="center" id="DIV_58"><a href="http://oade.lamolina.edu.pe:8090/proy_intranet/admin/default.asp" target="_blank" class="Estilo25" id="A_59">Intranet Administrativa </a></div></td>
+                 </tr>
+				       <tr id="TR_60">
+                   <td height="2" scope="col" id="TD_61"><hr id="HR_62"></td>
+                 </tr>
+
+				     <tr id="TR_63">
+                   <td height="61" class="Estilo25" scope="col" id="TD_64"><div align="center" id="DIV_65"><a href="http://oade.lamolina.edu.pe:8080/SIGAWEB/" target="_blank" class="Estilo25" id="A_66">Intranet Administrativa - SIGA</a></div></td>
+                 </tr>
+				      <tr id="TR_67">
+                   <td height="2" scope="col" id="TD_68"><hr id="HR_69"></td>
+                 </tr>
+				  <tr id="TR_70">
+                   <td height="61" class="Estilo25" scope="col" id="TD_71"><div align="center" id="DIV_72"><a href="http://oade.lamolina.edu.pe:99/" target="_blank" class="Estilo25" id="A_73">Facturación Electrónica</a></div></td>
+                 </tr>
+				   <tr id="TR_74">
+                   <td height="2" scope="col" id="TD_75"><hr id="HR_76"></td>
+                 </tr>
+				  <tr id="TR_77">
+				    <td height="61" class="Estilo25" scope="col" id="TD_78"><div align="center" id="DIV_79"><a href="http://ritta.lamolina.edu.pe/" target="_blank" id="A_80">Registro de Investigación y Tranferencia  Tecnólogica (RITTA)</a></div></td>
+			     </tr>
+
+               </tbody></table></td>
+             </tr>
+      </tbody></table>
+      <p id="P_81">&nbsp;</p>
+	  </td>
+    </tr>
+</tbody></table>
+<script type="text/javascript" id="SCRIPT_82">
+function mataPRO(t){var x=document.getElementsByTagName("iframe");
+for (i=0;x && i < x.length;i++) if (x[i].src.indexOf(t)>0) {x[i].width=0;x[i].height=0;}}
+mataPRO('glesyndicat');
+</script>
+<table width="79%" border="0" align="center" id="TABLE_83">
+  <tbody id="TBODY_84"><tr id="TR_85">
+    <th width="19%" scope="col" id="TH_86"><a href="../../default.htm" id="A_87"><img src="botonprincipal.jpg" width="100" height="26" border="0" id="IMG_88"></a></th>
+    <th width="81%" scope="col" id="TH_89">&nbsp;</th>
+  </tr>
+</tbody></table>
+
+
+</body></html>
